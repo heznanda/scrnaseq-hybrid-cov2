@@ -186,3 +186,26 @@ pdf(file="output/integration2/integration_umap_split_cov2_highlight_percentages_
 print(DimPlot(d, cells.highlight = dc0.001, cols.highlight = "cadetblue", reduction="umap", label=F, pt.size = 0.5, split.by = "RNA_snn_res.0.15") + NoLegend() + labs(caption="Integration res 0.15 cells >0.001% SARS-CoV2"))
 print(DimPlot(d, cells.highlight = dc0.001, cols.highlight = "cadetblue", reduction="umap", label=T, pt.size = 0.5, split.by = "orig.ident") + NoLegend() + labs(caption="Integration res 0.15 cells >0.001% SARS-CoV2"))
 dev.off()
+
+# 14. Plot FeatureScatter with normalized Cov2 and IFN
+# ----------------------------------------------------
+d2.cov2.norm <- log2(Matrix::colSums(GetAssayData(object = d2, slot = "counts")[cov2.gene.names, ])/Matrix::colSums(GetAssayData(object = d2, slot = "counts")) * 1000000  + 1)
+d5.cov2.norm <- log2(Matrix::colSums(GetAssayData(object = d5, slot = "counts")[cov2.gene.names, ])/Matrix::colSums(GetAssayData(object = d5, slot = "counts")) * 1000000  + 1)
+
+d2[["norm.cov2.reads_log2"]] <- d2.cov2.norm
+d5[["norm.cov2.reads_log2"]] <- d5.cov2.norm
+
+d2ifn <- subset(d2, subset = norm.ifn.reads_log2 > 0.00000001)
+d5ifn <- subset(d5, subset = norm.ifn.reads_log2 > 0.00000001)
+
+pdf(file="output/featurescatter_sample2_5_IFN.pdf")
+print(FeatureScatter(d2ifn, feature1 = "norm.ifn.reads_log2", feature2 = "norm.cov2.reads_log2", 
+                        cols =c("0"="lightblue","1"="pink","2"="orange","6"="orchid"), pt.size = 2.5 ) + 
+                        labs(caption="Sample 2 Corr 11 Cells (>0.00000001% Norm IFN Log2)",title = paste0("Feature Scatter Plot Sample 2 Correlation: ",cor2))+
+                        ylab("Normalized average virus reads (log2)") +xlab("Normalized average IFN reads (log2)"))
+        
+print(FeatureScatter(d5ifn, feature1 = "norm.ifn.reads_log2", feature2 = "norm.cov2.reads_log2",
+                        cols =c("0"="purple","1"="pink","2"="blue","3"="red","4"="lightpink","5"="darkred"), pt.size = 2.5 ) + 
+                        labs(caption="Sample 5 Corr 85 Cells (>0.00000001% Norm IFN Log2)",title = paste0("Feature Scatter Plot Sample 5 Correlation: ",cor5)) + 
+                        ylab("Normalized average virus reads (log2)")+xlab("Normalized average IFN reads (log2)"))
+dev.off()
