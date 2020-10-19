@@ -31,3 +31,17 @@ The CoV2 cells analysis (an extension from the Seurat hybrid pipeline: <a class=
 ###### The overall CoV2 cells analysis steps:
 * Subset data for lower threshold of 0.0000001, 0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1% CoV2 cells
 * Plot TSNE dimensionality reduction with specific threshold virus cells highlighted
+
+### Analysis Method for integration was done using R (v4.0.2) with Seurat (v3.2.2)
+
+The Seurat integration pipeline: <a class="link-gray" href="https://github.com/heznanda/scrnaseq-hybrid-cov2/blob/master/integration_pipeline_seurat_v3_R_script.R">integration_pipeline_seurat_v3_R_script.R</a>
+
+This pipeline includes CoV2 (definition >0.001% CoV2) and IFN cell analysis.
+
+###### The overall integration pipeline Seurat steps:
+* Update Seurat object to v3
+* Merge and integrate anchorset
+* Normalization and scalling
+* Dimensionality reduction: PCA and UMAP resolution 0.15
+* Plot UMAP cell highlight for CoV2 (>0.001% cadetblue color) and IFN (red color)
+* Plot FeatureScatter normalized CoV2 and IFN for sample 2 (24h) and 5 (48h)
