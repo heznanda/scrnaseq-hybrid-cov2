@@ -1,6 +1,6 @@
 # Single Cell RNA Sequencing with Hybrid Pipeline
 ## Published as Single cell resolution of SARS-CoV-2 tropism, antiviral responses, and susceptibility to therapies in primary human airway epithelium, Langlois et al. 2020
-The journal link: <a class="link-gray" href="#">Publishing...</a>
+The journal link: <a class="link-gray" href="https://journals.plos.org/plospathogens/article?id=10.1371/journal.ppat.1009292">PLOS journal link</a>
 
 ### The 10x Chromium Single Cell sequencing raw data of experimental samples were reference mapped using Cell Ranger Count (v3.0.1)
 The alignment is done in a hybrid manner with human+SARS-CoV-2 viral genome reference (Homo_sapiens.GRCh38; MN985325)
